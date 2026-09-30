@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Wrench, Send, Paperclip, AlertTriangle, Calendar, CheckCircle2, User, Bot, X, Search, FileText } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
-const API_BASE = 'http://localhost:8000/api';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || (window.location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://ai-car-mechanic-chatbot-ify0.onrender.com');
+const API_BASE = `${BACKEND_URL}/api`;
+
 
 
 export default function App() {
@@ -288,14 +290,15 @@ export default function App() {
                           </div>
                         )}
                         {msg.media_type === 'image' && (
-                          <img src={msg.media_url.startsWith('http') ? msg.media_url : `http://localhost:8000${msg.media_url}`} alt="Uploaded inspection file" />
+                          <img src={msg.media_url.startsWith('http') ? msg.media_url : `${BACKEND_URL}${msg.media_url}`} alt="Uploaded inspection file" />
                         )}
                         {msg.media_type === 'audio' && (
-                          <audio controls src={msg.media_url.startsWith('http') ? msg.media_url : `http://localhost:8000${msg.media_url}`} style={{ width: '100%', minWidth: '250px' }} />
+                          <audio controls src={msg.media_url.startsWith('http') ? msg.media_url : `${BACKEND_URL}${msg.media_url}`} style={{ width: '100%', minWidth: '250px' }} />
                         )}
                         {msg.media_type === 'video' && (
-                          <video controls src={msg.media_url.startsWith('http') ? msg.media_url : `http://localhost:8000${msg.media_url}`} style={{ width: '100%' }} />
+                          <video controls src={msg.media_url.startsWith('http') ? msg.media_url : `${BACKEND_URL}${msg.media_url}`} style={{ width: '100%' }} />
                         )}
+
                       </div>
                     )}
                   </div>
